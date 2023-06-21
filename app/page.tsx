@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image'
 
 export default function Home() {
 
@@ -36,43 +37,96 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-between p-24">
       <div>
-        <div className="z-10 w-full max-w-5xl items-center justify-center font-mono   sm:flex">
-          <p className="text-2xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-            A
-          </p>
-          <p className="text-2xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-            B
-          </p>
-          <p className="text-2xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-            C
-          </p>
-          <p className="text-2xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-            D
-          </p>
-          <p className="text-2xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-            E
-          </p>
+        
+        <div className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex">
+          <div className="relative">
+            <Image
+              src="/images/rip-r_rip-l.png"
+              width={50}
+              height={50}
+              alt="Picture of the author"
+            />
+            <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+              <p className="text-xl">A</p>
+            </div>
+          </div>
+
+          <div className="relative">
+            <Image
+              src="/images/com-r_rip-l.png"
+              width={50}
+              height={50}
+              alt="Picture of the author"
+            />
+            <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+              <p className="text-xl">M</p>
+            </div>
+          </div>
+
+          <div className="relative">
+            <Image
+              src="/images/com-r_com-l.png"
+              width={50}
+              height={50}
+              alt="Picture of the author"
+            />
+            <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+              <p className="text-xl">O</p>
+            </div>
+          </div>
+
+          <div className="relative">
+            <Image
+              src="/images/rip-r_com-l.png"
+              width={50}
+              height={50}
+              alt="Picture of the author"
+            />
+            <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+              <p className="text-xl">N</p>
+            </div>
+          </div>
+
+          <div className="relative">
+            <Image
+              src="/images/empty.png"
+              width={50}
+              height={50}
+              alt="Picture of the author"
+            />
+            <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+              <p className="text-xl">G</p>
+            </div>
+          </div>
+
+          <div className="relative">
+            <Image
+              src="/images/com-r_rip-l.png"
+              width={50}
+              height={50}
+              alt="Picture of the author"
+            />
+            <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+              <p className="text-xl">U</p>
+            </div>
+          </div>
+
+          <div className="relative">
+            <Image
+              src="/images/rip-r_com-l.png"
+              width={50}
+              height={50}
+              alt="Picture of the author"
+            />
+            <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+              <p className="text-xl">S</p>
+            </div>
+          </div>
+          
         </div>
 
         <div className="z-10 w-full max-w-5xl items-center justify-center font-mono   sm:flex">
-          <p className="text-2xl fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-            A
-          </p>
-          <p className="text-2xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-            B
-          </p>
-          <p className="text-2xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-            C
-          </p>
-          <p className="text-2xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-            D
-          </p>
-          <p className="text-2xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-            E
-          </p>
-          <p className="text-2xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-            F
-          </p>
+          NEW GUESS
         </div>
       </div>
       
