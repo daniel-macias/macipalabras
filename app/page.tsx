@@ -4,21 +4,27 @@ import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image'
 
 export default function Home() {
-
+  const respuesta = "AMONGUS"
   const detectKeyDown = useRef<((e: KeyboardEvent) => void) | null>(null);
   const [typedWord, setTypedWord] = useState<string[]>([]);
+  const [guesses, setGuesses] = useState<string[]>([]);
 
   useEffect(() => {
     detectKeyDown.current = (e: KeyboardEvent) => {
       console.log("Clicked +", e.key);
+      const isAlphabet = /^[a-zA-ZñÑ]$/.test(e.key);
 
       if (e.key === 'Enter') {
-        console.log('Typed Word:', typedWord);
+        const wordToCheck = typedWord.join('');
+        setGuesses((prevGuess) => [...prevGuess, wordToCheck]);
+        console.log('Guesses:', wordToCheck);
         setTypedWord([]);
       } else if (e.key === 'Backspace') {
         setTypedWord((prevTypedWord) => prevTypedWord.slice(0, -1));
+      } else if (isAlphabet) {
+        setTypedWord((prevTypedWord) => [...prevTypedWord, e.key.toUpperCase()]);
       } else {
-        setTypedWord((prevTypedWord) => [...prevTypedWord, e.key]);
+        console.log("Not in the alphabet.")
       }
     };
 
@@ -125,9 +131,42 @@ export default function Home() {
           
         </div>
 
-        <div className="z-10 w-full max-w-5xl items-center justify-center font-mono   sm:flex">
-          NEW GUESS
+        
+        {guesses.map((item, index) => (
+           <div className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex">
+            {Array.from(item).map((letter, index) => (
+              
+              <div key={index} className="relative">
+                <Image
+                  src="/images/empty.png"
+                  width={50}
+                  height={50}
+                  alt="Empty Image"
+                />
+                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+                  <p className="text-xl">{letter}</p>
+                </div>
+              </div>
+            ))}
+            </div>
+            ))}
+            <div className="z-10 w-full max-w-5xl items-center justify-center font-mono   sm:flex">
+            {typedWord.map((item, index) => (
+              <div key={index} className="relative">
+                <Image
+                  src="/images/empty.png"
+                  width={50}
+                  height={50}
+                  alt="Empty Image"
+                />
+                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+                  <p className="text-xl">{item}</p>
+                </div>
+              </div>
+            ))}
         </div>
+
+        
       </div>
       
 
