@@ -5,25 +5,96 @@ import Image from 'next/image'
 
 export default function Home() {
   const respuesta = "CARRY";
-  const [respuestaLetterAmount, setRespuestaLetterAmount] = useState<{ letter: string, amount: number }[]>([
-    { letter: "C", amount: 1 },
-    { letter: "A", amount: 1 },
-    { letter: "R", amount: 2 },
-    { letter: "Y", amount: 1 },
-  ]);
-
-  const respuestaLetterAmountCopy = respuestaLetterAmount;
   
   const detectKeyDown = useRef<((e: KeyboardEvent) => void) | null>(null);
   const [typedWord, setTypedWord] = useState<string[]>([]);
   const [guesses, setGuesses] = useState<string[]>([]);
+  const [isSolved, setIsSolved] = useState(false);
 
-  const updateAmount = (letter: string) => {
-    setRespuestaLetterAmount((prevState) =>
-      prevState.map((item) =>
-        item.letter === letter ? { ...item, amount: item.amount - 1 } : item
-      )
-    );
+  function getLetterAmount(word: string): Map<string, number> {
+    const letterCount: Map<string, number> = new Map();
+  
+    // Count the appearances of each letter in the word
+    for (const letter of word) {
+      if (letterCount.has(letter)) {
+        letterCount.set(letter, letterCount.get(letter)! + 1);
+      } else {
+        letterCount.set(letter, 1);
+      }
+    }
+  
+    return letterCount;
+  }
+
+  const renderGuesses = () => {
+    // Your code here to process the guesses or perform any other logic
+
+    let answerLetterAmount = getLetterAmount(respuesta);
+    
+  
+    return guesses.map((guess, index) => (
+      <div key={index} className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex py-2">
+        {Array.from(guess).map((letterFromGuess, indexLetter) => {
+        let imageSrc;
+
+        if (respuesta.includes(letterFromGuess)) {
+          
+          let guessLetterAmount = getLetterAmount(guess);
+          let isCorrectSolution = respuesta == guess ? true : false;
+
+          if (answerLetterAmount.get(letterFromGuess) == guessLetterAmount.get(letterFromGuess)){
+            
+            if(isCorrectSolution){
+              if (respuesta[0] == letterFromGuess){
+                imageSrc = "/images/complete-l.png";
+              }else if (respuesta[respuesta.length - 1] == letterFromGuess){
+                imageSrc = "/images/complete-r.png";
+              }else{
+                imageSrc = "/images/complete-mid.png";
+              }
+            }else{
+              if (respuesta[0] == letterFromGuess){
+                imageSrc = "/images/good-end-l.png";
+              }else if (respuesta[respuesta.length - 1] == letterFromGuess){
+                imageSrc = "/images/good-end-r.png";
+              }else{
+                imageSrc = "/images/good-mid.png";
+              }
+            }
+            
+
+          }else{
+            if (respuesta[0] == letterFromGuess){
+              imageSrc = "/images/meh-end-l.png";
+            }else if (respuesta[respuesta.length - 1] == letterFromGuess){
+              imageSrc = "/images/meh-end-r.png";
+            }else{
+              imageSrc = "/images/meh-mid.png";
+            }
+
+            
+          }
+          
+        } else {
+          imageSrc = "/images/empty.png";
+        }
+
+        return (
+          <div key={indexLetter} className="relative">
+            <Image
+              src={imageSrc}
+              width={50}
+              height={50}
+              alt="Image"
+            />
+            <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+              <p className="text-xl">{letterFromGuess}</p>
+            </div>
+          </div>
+        );
+      })}
+      </div>
+    ));
   };
 
   useEffect(() => {
@@ -34,7 +105,9 @@ export default function Home() {
       if (e.key === 'Enter') {
         const wordToCheck = typedWord.join('');
         setGuesses((prevGuess) => [...prevGuess, wordToCheck]);
-        console.log('Guesses:', guesses);
+        if (wordToCheck == respuesta){
+          setIsSolved(true);
+        }
         setTypedWord([]);
       } else if (e.key === 'Backspace') {
         setTypedWord((prevTypedWord) => prevTypedWord.slice(0, -1));
@@ -59,79 +132,14 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-between p-24">
-<div>
-  {guesses.map((guess, index) => (
-    <div key={index} className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex">
-      {Array.from(guess).map((letterFromGuess, indexLetter) => {
-        let imageSrc;
+      <div>
+      {renderGuesses()}
 
-
-        if (respuesta.includes(letterFromGuess)) {
-          //updateAmount(letterFromGuess);
-
-          imageSrc = "/images/rip-r_rip-l.png";
-          //Checking if we are validating for the first letter of the guess
-          if(indexLetter == 0){
-            //Checking if the letter is at the beginning of the word
-            if(respuesta[0] == letterFromGuess){
-              //Check if the next letter is valid
-              if(respuesta[1] == guess[1]){
-                imageSrc = "/images/com-r_com-l.png";
-              }else{
-                imageSrc = "/images/rip-r_com-l.png";
-              }
-            }
-          }
-          //Checking if we are validating for the last letter of the guess
-          else if(indexLetter == guess.length - 1){
-            //Checking if the letter is at the end of the word
-            if(respuesta[respuesta.length - 1] == letterFromGuess){
-              //Check if the next letter is valid
-              
-              if(respuesta[respuesta.length - 2] == guess[guess.length - 2]){
-                
-                imageSrc = "/images/com-r_com-l.png";
-              }else{
-                imageSrc = "/images/com-r_rip-l.png";
-              }
-            }
-          } else {
-            // Checking other letters
-            imageSrc = "/images/rip-r_rip-l.png";
-            
-            let frontIsValid = (respuesta[indexLetter + 1] == guess[indexLetter + 1]);
-            let backIsValid = (respuesta[indexLetter - 1] == guess[indexLetter - 1]);
-            if (frontIsValid && backIsValid) {
-              imageSrc = "/images/com-r_com-l.png";
-            }else if (frontIsValid){
-              imageSrc = "/images/com-r_rip-l.png";
-            }else if (backIsValid){
-              imageSrc = "/images/rip-r_com-l.png";
-            }
-          }
-        } else {
-          imageSrc = "/images/empty.png";
-        }
-
-        return (
-          <div key={indexLetter} className="relative">
-            <Image
-              src={imageSrc}
-              width={50}
-              height={50}
-              alt="Image"
-            />
-            <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-              <p className="text-xl">{letterFromGuess}</p>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  ))}
 
 
 </div>
+
+
 
 <div className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex">
     {typedWord.map((item, index) => (
