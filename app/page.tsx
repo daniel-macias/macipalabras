@@ -34,7 +34,7 @@ export default function Home() {
       if (e.key === 'Enter') {
         const wordToCheck = typedWord.join('');
         setGuesses((prevGuess) => [...prevGuess, wordToCheck]);
-        console.log('Guesses:', wordToCheck);
+        console.log('Guesses:', guesses);
         setTypedWord([]);
       } else if (e.key === 'Backspace') {
         setTypedWord((prevTypedWord) => prevTypedWord.slice(0, -1));
@@ -67,7 +67,7 @@ export default function Home() {
 
 
         if (respuesta.includes(letterFromGuess)) {
-          updateAmount(letterFromGuess);
+          //updateAmount(letterFromGuess);
 
           imageSrc = "/images/rip-r_rip-l.png";
           //Checking if we are validating for the first letter of the guess
@@ -130,7 +130,10 @@ export default function Home() {
     </div>
   ))}
 
-  <div className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex">
+
+</div>
+
+<div className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex">
     {typedWord.map((item, index) => (
       <div key={index} className="relative">
         <Image
@@ -145,7 +148,6 @@ export default function Home() {
       </div>
     ))}
   </div>
-</div>
       
 
       <div>
