@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image'
+import Button from '@mui/base/Button';
 
 export default function Home() {
   const respuesta = "CARRY";
@@ -33,7 +34,8 @@ export default function Home() {
     
   
     return guesses.map((guess, index) => (
-      <div key={index} className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex py-2">
+      <div>
+        <div key={index} className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex py-2">
         {Array.from(guess).map((letterFromGuess, indexLetter) => {
         let imageSrc;
 
@@ -93,14 +95,17 @@ export default function Home() {
           </div>
         );
       })}
+      </div >
+      <p className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex py-2">TIP</p>
       </div>
+      
     ));
   };
 
   useEffect(() => {
     detectKeyDown.current = (e: KeyboardEvent) => {
       console.log("Clicked +", e.key);
-      const isAlphabet = /^[a-zA-ZñÑ]$/.test(e.key);
+      const isAlphabet = /^[a-zA-Z]$/.test(e.key);
 
       if (e.key === 'Enter') {
         const wordToCheck = typedWord.join('');
@@ -219,9 +224,6 @@ export default function Home() {
             </p>
             <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
               L
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              Ñ
             </p>
             
           </div>
