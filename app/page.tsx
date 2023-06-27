@@ -8,7 +8,6 @@ import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faMinus } from '@fortawesome/free-solid-svg-icons'
 import { faEquals } from '@fortawesome/free-solid-svg-icons'
-import { faStarOfLife } from '@fortawesome/free-solid-svg-icons'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 export default function Home() {
@@ -92,7 +91,6 @@ export default function Home() {
   }
 
   const renderGuesses = () => {
-    // Your code here to process the guesses or perform any other logic
 
     let answerLetterAmount = getLetterAmount(respuesta);
 
@@ -192,13 +190,17 @@ export default function Home() {
   };
 
   const enterPressed = () => {
-    const wordToCheck = typedWord.join('');
-        setGuesses((prevGuess) => [...prevGuess, wordToCheck]);
-        changeKeyboardColors(getLetterAmount(wordToCheck),getLetterAmount(respuesta));
-        if (wordToCheck == respuesta) {
-          setIsSolved(true);
-        }
-        setTypedWord([]);
+    if(!isSolved){
+      const wordToCheck = typedWord.join('');
+      setGuesses((prevGuess) => [...prevGuess, wordToCheck]);
+      changeKeyboardColors(getLetterAmount(wordToCheck),getLetterAmount(respuesta));
+      if (wordToCheck == respuesta) {
+        setIsSolved(true);
+      }
+      setTypedWord([]);
+    }
+    
+    
   };
 
   useEffect(() => {
@@ -210,7 +212,7 @@ export default function Home() {
         enterPressed();
       } else if (e.key === 'Backspace') {
         setTypedWord((prevTypedWord) => prevTypedWord.slice(0, -1));
-      } else if (isAlphabet) {
+      } else if (isAlphabet && !isSolved) {
         setTypedWord((prevTypedWord) => [...prevTypedWord, e.key.toUpperCase()]);
       } else {
         console.log("Not in the alphabet.")
@@ -231,11 +233,12 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-between p-24">
+      <div className="text-xl text-center border-b border-gray-300 pb-5 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4 justify-center">
+            MaciWords
+
+      </div>
       <div>
         {renderGuesses()}
-
-
-
       </div>
 
 
@@ -256,9 +259,19 @@ export default function Home() {
         ))}
       </div>
 
+      <div>
+        {isSolved && (
+          <div className="text-center border-b border-gray-300 pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4 justify-center">
+            <div className="text-xl">MaciWords</div>
+            <div>{guesses.length} words used</div>
+            <div>{guesses.join('').length} letters used</div>
+            
+          </div>
+        )}
+      </div>
 
       <div>
-        <div className="z-10 w-full max-w-5xl items-center justify-center font-mono   sm:flex">
+        <div className="z-10 w-full max-w-5xl items-center justify-center font-mono pt-5  sm:flex">
           <Button
             className={`text-xl border-b border-gray-300 ${backgroundColors['Q']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "Q"])}
@@ -437,7 +450,6 @@ export default function Home() {
 
 
       </div>
-
 
 
     </div>
