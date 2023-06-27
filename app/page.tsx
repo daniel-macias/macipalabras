@@ -6,7 +6,7 @@ import Button from '@mui/base/Button';
 
 export default function Home() {
   const respuesta = "CARRY";
-  
+
   const detectKeyDown = useRef<((e: KeyboardEvent) => void) | null>(null);
   const [typedWord, setTypedWord] = useState<string[]>([]);
   const [guesses, setGuesses] = useState<string[]>([]);
@@ -14,7 +14,7 @@ export default function Home() {
 
   function getLetterAmount(word: string): Map<string, number> {
     const letterCount: Map<string, number> = new Map();
-  
+
     // Count the appearances of each letter in the word
     for (const letter of word) {
       if (letterCount.has(letter)) {
@@ -23,7 +23,7 @@ export default function Home() {
         letterCount.set(letter, 1);
       }
     }
-  
+
     return letterCount;
   }
 
@@ -31,74 +31,74 @@ export default function Home() {
     // Your code here to process the guesses or perform any other logic
 
     let answerLetterAmount = getLetterAmount(respuesta);
-    
-  
+
+
     return guesses.map((guess, index) => (
       <div>
         <div key={index} className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex py-2">
-        {Array.from(guess).map((letterFromGuess, indexLetter) => {
-        let imageSrc;
+          {Array.from(guess).map((letterFromGuess, indexLetter) => {
+            let imageSrc;
 
-        if (respuesta.includes(letterFromGuess)) {
-          
-          let guessLetterAmount = getLetterAmount(guess);
-          let isCorrectSolution = respuesta == guess ? true : false;
+            if (respuesta.includes(letterFromGuess)) {
 
-          if (answerLetterAmount.get(letterFromGuess) == guessLetterAmount.get(letterFromGuess)){
-            
-            if(isCorrectSolution){
-              if (respuesta[0] == letterFromGuess){
-                imageSrc = "/images/complete-l.png";
-              }else if (respuesta[respuesta.length - 1] == letterFromGuess){
-                imageSrc = "/images/complete-r.png";
-              }else{
-                imageSrc = "/images/complete-mid.png";
+              let guessLetterAmount = getLetterAmount(guess);
+              let isCorrectSolution = respuesta == guess ? true : false;
+
+              if (answerLetterAmount.get(letterFromGuess) == guessLetterAmount.get(letterFromGuess)) {
+
+                if (isCorrectSolution) {
+                  if (respuesta[0] == letterFromGuess) {
+                    imageSrc = "/images/complete-l.png";
+                  } else if (respuesta[respuesta.length - 1] == letterFromGuess) {
+                    imageSrc = "/images/complete-r.png";
+                  } else {
+                    imageSrc = "/images/complete-mid.png";
+                  }
+                } else {
+                  if (respuesta[0] == letterFromGuess) {
+                    imageSrc = "/images/good-end-l.png";
+                  } else if (respuesta[respuesta.length - 1] == letterFromGuess) {
+                    imageSrc = "/images/good-end-r.png";
+                  } else {
+                    imageSrc = "/images/good-mid.png";
+                  }
+                }
+
+
+              } else {
+                if (respuesta[0] == letterFromGuess) {
+                  imageSrc = "/images/meh-end-l.png";
+                } else if (respuesta[respuesta.length - 1] == letterFromGuess) {
+                  imageSrc = "/images/meh-end-r.png";
+                } else {
+                  imageSrc = "/images/meh-mid.png";
+                }
+
+
               }
-            }else{
-              if (respuesta[0] == letterFromGuess){
-                imageSrc = "/images/good-end-l.png";
-              }else if (respuesta[respuesta.length - 1] == letterFromGuess){
-                imageSrc = "/images/good-end-r.png";
-              }else{
-                imageSrc = "/images/good-mid.png";
-              }
-            }
-            
 
-          }else{
-            if (respuesta[0] == letterFromGuess){
-              imageSrc = "/images/meh-end-l.png";
-            }else if (respuesta[respuesta.length - 1] == letterFromGuess){
-              imageSrc = "/images/meh-end-r.png";
-            }else{
-              imageSrc = "/images/meh-mid.png";
+            } else {
+              imageSrc = "/images/empty.png";
             }
 
-            
-          }
-          
-        } else {
-          imageSrc = "/images/empty.png";
-        }
-
-        return (
-          <div key={indexLetter} className="relative">
-            <Image
-              src={imageSrc}
-              width={50}
-              height={50}
-              alt="Image"
-            />
-            <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-              <p className="text-xl">{letterFromGuess}</p>
-            </div>
-          </div>
-        );
-      })}
-      </div >
-      <p className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex py-2">TIP</p>
+            return (
+              <div key={indexLetter} className="relative">
+                <Image
+                  src={imageSrc}
+                  width={50}
+                  height={50}
+                  alt="Image"
+                />
+                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+                  <p className="text-xl">{letterFromGuess}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div >
+        <p className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex py-2">TIP</p>
       </div>
-      
+
     ));
   };
 
@@ -110,7 +110,7 @@ export default function Home() {
       if (e.key === 'Enter') {
         const wordToCheck = typedWord.join('');
         setGuesses((prevGuess) => [...prevGuess, wordToCheck]);
-        if (wordToCheck == respuesta){
+        if (wordToCheck == respuesta) {
           setIsSolved(true);
         }
         setTypedWord([]);
@@ -138,134 +138,212 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-between p-24">
       <div>
-      {renderGuesses()}
+        {renderGuesses()}
 
 
 
-</div>
-
-
-
-<div className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex">
-    {typedWord.map((item, index) => (
-      <div key={index} className="relative">
-        <Image
-          src="/images/empty.png"
-          width={50}
-          height={50}
-          alt="Empty Image"
-        />
-        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-          <p className="text-xl">{item}</p>
-        </div>
       </div>
-    ))}
-  </div>
-      
+
+
+
+      <div className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex">
+        {typedWord.map((item, index) => (
+          <div key={index} className="relative">
+            <Image
+              src="/images/empty.png"
+              width={50}
+              height={50}
+              alt="Empty Image"
+            />
+            <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+              <p className="text-xl">{item}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
 
       <div>
         <div className="z-10 w-full max-w-5xl items-center justify-center font-mono   sm:flex">
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              Q
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              W
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              E
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              R
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              T
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              Y
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              U
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              I
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              O
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              P
-            </p>
-            
-          </div>
-          <div className="z-10 w-full max-w-5xl items-center justify-center font-mono   sm:flex">
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              A
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              S
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              D
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              F
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              G
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              H
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              J
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              K
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              L
-            </p>
-            
-          </div>
-          <div className="z-10 w-full max-w-5xl items-center justify-center font-mono   sm:flex">
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              ENTER
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              Z
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              X
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              C
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              V
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              B
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              N
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              M
-            </p>
-            <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-              ERASE
-            </p>
-          </div>
-          
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "Q"])}
+          >
+            Q
+          </Button>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "W"])}
+          >
+            W
+          </Button>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "E"])}
+          >
+            E
+          </Button>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "R"])}
+          >
+            R
+          </Button>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "T"])}
+          >
+            T
+          </Button>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "Y"])}
+          >
+            Y
+          </Button>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "U"])}
+          >
+            U
+          </Button>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "I"])}
+          >
+            I
+          </Button>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "O"])}
+          >
+            O
+          </Button>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "P"])}
+          >
+            P
+          </Button>
 
-        
+        </div>
+        <div className="z-10 w-full max-w-5xl items-center justify-center font-mono   sm:flex">
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "A"])}
+          >
+            A
+          </Button>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "S"])}
+          >
+            S
+          </Button>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "D"])}
+          >
+            D
+          </Button>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "F"])}
+          >
+            F
+          </Button>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "G"])}
+          >
+            G
+          </Button>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "H"])}
+          >
+            H
+          </Button>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "J"])}
+          >
+            J
+          </Button>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "K"])}
+          >
+            K
+          </Button>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "L"])}
+          >
+            L
+          </Button>
+
+        </div>
+        <div className="z-10 w-full max-w-5xl items-center justify-center font-mono   sm:flex">
+          <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
+            ENTER
+          </p>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "Z"])}
+          >
+            Z
+          </Button>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "X"])}
+          >
+            X
+          </Button>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "C"])}
+          >
+            C
+          </Button>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "V"])}
+          >
+            V
+          </Button>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "B"])}
+          >
+            B
+          </Button>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "N"])}
+          >
+            N
+          </Button>
+          <Button
+            className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-2 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+            onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "M"])}
+          >
+            M
+          </Button>
+          <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
+            ERASE
+          </p>
+        </div>
+
+
+
 
       </div>
-      
-      
-      
+
+
+
     </div>
 
-    
+
   )
 }
