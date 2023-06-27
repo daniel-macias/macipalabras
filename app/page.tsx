@@ -3,6 +3,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image'
 import Button from '@mui/base/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faMinus } from '@fortawesome/free-solid-svg-icons'
+import { faEquals } from '@fortawesome/free-solid-svg-icons'
+import { faStarOfLife } from '@fortawesome/free-solid-svg-icons'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 export default function Home() {
   const respuesta = "CARRY";
@@ -96,7 +103,32 @@ export default function Home() {
             );
           })}
         </div >
-        <p className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex py-2">TIP</p>
+        {guess.length > respuesta.length && (
+          <div className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex py-2">
+            <FontAwesomeIcon icon={faMinus} color="red" />
+            <p className="px-2">The answer has fewer letters</p>
+          </div>
+        )}
+        {guess.length < respuesta.length && (
+          <div className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex py-2">
+            <FontAwesomeIcon icon={faPlus} color="red" />
+            <p className="px-2">The answer has more letters</p>
+          </div>
+        )}
+        {guess.length === respuesta.length && guess != respuesta && (
+          <div className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex py-2">
+            <FontAwesomeIcon icon={faEquals} color="yellow" />
+            <p className="px-2">The answer has the same number of letters</p>
+          </div>
+        )}
+        { guess === respuesta && (
+          <div className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex py-2">
+          <FontAwesomeIcon icon={faCheck} color="green"/>
+          <p className='px-2'>You got it!</p>
+          </div>
+        )}
+          
+        
       </div>
 
     ));
@@ -331,7 +363,7 @@ export default function Home() {
             M
           </Button>
           <p className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30">
-            ERASE
+            <FontAwesomeIcon icon={faDeleteLeft} />
           </p>
         </div>
 
