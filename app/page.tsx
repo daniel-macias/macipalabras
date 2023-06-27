@@ -9,9 +9,22 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faMinus } from '@fortawesome/free-solid-svg-icons'
 import { faEquals } from '@fortawesome/free-solid-svg-icons'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { answers, allowed } from '../public/words';
+import seedrandom from 'seedrandom';
 
 export default function Home() {
-  const respuesta = "CARRY";
+  const [correctAnswer, setCorrectAnswer] = useState('');
+
+  useEffect(() => {
+    const now = new Date();
+    const rng = seedrandom(
+      (now.getDate() + now.getMonth() * 32 + now.getFullYear() * 400).toString()
+    );
+
+    const randomIndex = Math.floor(rng() * answers.length);
+
+    setCorrectAnswer(answers[randomIndex].toUpperCase());
+  }, []); 
 
   const detectKeyDown = useRef<((e: KeyboardEvent) => void) | null>(null);
   const [typedWord, setTypedWord] = useState<string[]>([]);
@@ -56,6 +69,8 @@ export default function Home() {
 
   const changeKeyboardColors = (letterAmountGuesses: Map<string, number>, letterAmountAnswer: Map<string, number>) => {
     const updatedBackgroundColors = backgroundColors;
+    console.log(letterAmountAnswer);
+    console.log(letterAmountGuesses);
   
     letterAmountGuesses.forEach((value, key) => {
       if (letterAmountAnswer.has(key)) {
@@ -92,7 +107,7 @@ export default function Home() {
 
   const renderGuesses = () => {
 
-    let answerLetterAmount = getLetterAmount(respuesta);
+    let answerLetterAmount = getLetterAmount(correctAnswer);
 
 
     return guesses.map((guess, index) => (
@@ -101,25 +116,25 @@ export default function Home() {
           {Array.from(guess).map((letterFromGuess, indexLetter) => {
             let imageSrc;
 
-            if (respuesta.includes(letterFromGuess)) {
+            if (correctAnswer.includes(letterFromGuess)) {
 
               let guessLetterAmount = getLetterAmount(guess);
-              let isCorrectSolution = respuesta == guess ? true : false;
+              let isCorrectSolution = correctAnswer == guess ? true : false;
 
               if (answerLetterAmount.get(letterFromGuess) == guessLetterAmount.get(letterFromGuess)) {
 
                 if (isCorrectSolution) {
-                  if (respuesta[0] == letterFromGuess) {
+                  if (correctAnswer[0] == letterFromGuess) {
                     imageSrc = "/images/complete-l.png";
-                  } else if (respuesta[respuesta.length - 1] == letterFromGuess) {
+                  } else if (correctAnswer[correctAnswer.length - 1] == letterFromGuess) {
                     imageSrc = "/images/complete-r.png";
                   } else {
                     imageSrc = "/images/complete-mid.png";
                   }
                 } else {
-                  if (respuesta[0] == letterFromGuess) {
+                  if (correctAnswer[0] == letterFromGuess) {
                     imageSrc = "/images/good-end-l.png";
-                  } else if (respuesta[respuesta.length - 1] == letterFromGuess) {
+                  } else if (correctAnswer[correctAnswer.length - 1] == letterFromGuess) {
                     imageSrc = "/images/good-end-r.png";
                   } else {
                     imageSrc = "/images/good-mid.png";
@@ -128,9 +143,9 @@ export default function Home() {
 
 
               } else {
-                if (respuesta[0] == letterFromGuess) {
+                if (correctAnswer[0] == letterFromGuess) {
                   imageSrc = "/images/meh-end-l.png";
-                } else if (respuesta[respuesta.length - 1] == letterFromGuess) {
+                } else if (correctAnswer[correctAnswer.length - 1] == letterFromGuess) {
                   imageSrc = "/images/meh-end-r.png";
                 } else {
                   imageSrc = "/images/meh-mid.png";
@@ -158,25 +173,25 @@ export default function Home() {
             );
           })}
         </div >
-        {guess.length > respuesta.length && (
+        {guess.length > correctAnswer.length && (
           <div className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex py-2">
             <FontAwesomeIcon icon={faMinus} color="red" />
             <p className="px-2">The answer has fewer letters</p>
           </div>
         )}
-        {guess.length < respuesta.length && (
+        {guess.length < correctAnswer.length && (
           <div className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex py-2">
             <FontAwesomeIcon icon={faPlus} color="red" />
             <p className="px-2">The answer has more letters</p>
           </div>
         )}
-        {guess.length === respuesta.length && guess != respuesta && (
+        {guess.length === correctAnswer.length && guess != correctAnswer && (
           <div className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex py-2">
             <FontAwesomeIcon icon={faEquals} color="yellow" />
             <p className="px-2">The answer has the same number of letters</p>
           </div>
         )}
-        { guess === respuesta && (
+        { guess === correctAnswer && (
           <div className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex py-2">
           <FontAwesomeIcon icon={faCheck} color="green"/>
           <p className='px-2'>You got it!</p>
@@ -193,8 +208,8 @@ export default function Home() {
     if(!isSolved){
       const wordToCheck = typedWord.join('');
       setGuesses((prevGuess) => [...prevGuess, wordToCheck]);
-      changeKeyboardColors(getLetterAmount(wordToCheck),getLetterAmount(respuesta));
-      if (wordToCheck == respuesta) {
+      changeKeyboardColors(getLetterAmount(wordToCheck),getLetterAmount(correctAnswer));
+      if (wordToCheck == correctAnswer) {
         setIsSolved(true);
       }
       setTypedWord([]);
