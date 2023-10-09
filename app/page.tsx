@@ -174,25 +174,25 @@ export default function Home() {
           })}
         </div >
         {guess.length > correctAnswer.length && (
-          <div className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex py-2">
+          <div className="z-10 w-full max-w-5xl items-center justify-center font-mono flex py-2">
             <FontAwesomeIcon icon={faMinus} color="red" />
             <p className="px-2">The answer has fewer letters</p>
           </div>
         )}
         {guess.length < correctAnswer.length && (
-          <div className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex py-2">
+          <div className="z-10 w-full max-w-5xl items-center justify-center font-mono flex py-2">
             <FontAwesomeIcon icon={faPlus} color="red" />
             <p className="px-2">The answer has more letters</p>
           </div>
         )}
         {guess.length === correctAnswer.length && guess != correctAnswer && (
-          <div className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex py-2">
+          <div className="z-10 w-full max-w-5xl items-center justify-center font-mono flex py-2">
             <FontAwesomeIcon icon={faEquals} color="yellow" />
             <p className="px-2">The answer has the same number of letters</p>
           </div>
         )}
         { guess === correctAnswer && (
-          <div className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex py-2">
+          <div className="z-10 w-full max-w-5xl items-center justify-center font-mono flex py-2">
           <FontAwesomeIcon icon={faCheck} color="green"/>
           <p className='px-2'>You got it!</p>
           </div>
@@ -248,7 +248,7 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="text-xl text-center border-b border-gray-300 pb-5 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4 justify-center">
+      <div className="text-xl text-center border-b border-gray-300 pb-5 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4 justify-center">
             MaciWords
 
       </div>
@@ -276,7 +276,7 @@ export default function Home() {
 
       <div>
         {isSolved && (
-          <div className="text-center border-b border-gray-300 pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4 justify-center">
+          <div className="text-center border-b border-gray-300 pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4 justify-center">
             <div className="text-xl">MaciWords</div>
             <div>{guesses.length} words used</div>
             <div>{guesses.join('').length} letters used</div>
@@ -288,61 +288,61 @@ export default function Home() {
       <div>
         <div className="z-10 w-full max-w-5xl items-center justify-center font-mono pt-5  flex">
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['Q']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['Q']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "Q"])}
           >
             Q
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['W']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['W']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "W"])}
           >
             W
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['E']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['E']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "E"])}
           >
             E
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['R']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['R']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "R"])}
           >
             R
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['T']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['T']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "T"])}
           >
             T
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['Y']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['Y']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "Y"])}
           >
             Y
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['U']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['U']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "U"])}
           >
             U
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['I']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['I']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "I"])}
           >
             I
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['O']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['O']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "O"])}
           >
             O
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['P']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['P']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "P"])}
           >
             P
@@ -351,55 +351,55 @@ export default function Home() {
         </div>
         <div className="z-10 w-full max-w-5xl items-center justify-center font-mono flex">
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['A']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['A']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "A"])}
           >
             A
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['S']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['S']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "S"])}
           >
             S
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['D']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['D']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "D"])}
           >
             D
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['F']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['F']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "F"])}
           >
             F
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['G']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['G']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "G"])}
           >
             G
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['H']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['H']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "H"])}
           >
             H
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['J']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['J']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "J"])}
           >
             J
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['K']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['K']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "K"])}
           >
             K
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['L']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['L']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "L"])}
           >
             L
@@ -408,54 +408,54 @@ export default function Home() {
         </div>
         <div className="z-10 w-full max-w-5xl items-center justify-center font-mono  flex">
           <Button
-          className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+          className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto   rounded-xl border sm:bg-gray-200 p-2 sm:p-4 sm:dark:bg-zinc-800/30"
           onClick={enterPressed}>
             ENTER
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['Z']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['Z']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "Z"])}
           >
             Z
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['X']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['X']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "X"])}
           >
             X
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['C']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['C']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "C"])}
           >
             C
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['V']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['V']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "V"])}
           >
             V
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['B']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['B']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "B"])}
           >
             B
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['N']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['N']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "N"])}
           >
             N
           </Button>
           <Button
-            className={`text-xl border-b border-gray-300 ${backgroundColors['M']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
+            className={`text-xl border-b border-gray-300 ${backgroundColors['M']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto  rounded-xl border p-2 sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "M"])}
           >
             M
           </Button>
           <Button
-          className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
+          className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto   rounded-xl border sm:bg-gray-200 p-2 sm:p-4 sm:dark:bg-zinc-800/30"
           onClick={() => setTypedWord((prevTypedWord) => prevTypedWord.slice(0, -1))}>
             <FontAwesomeIcon icon={faDeleteLeft} />
           </Button>
