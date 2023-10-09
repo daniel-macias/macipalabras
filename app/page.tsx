@@ -112,7 +112,7 @@ export default function Home() {
 
     return guesses.map((guess, index) => (
       <div>
-        <div key={index} className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex py-2">
+        <div key={index} className="z-10 w-full max-w-5xl items-center justify-center font-mono flex py-2">
           {Array.from(guess).map((letterFromGuess, indexLetter) => {
             let imageSrc;
 
@@ -258,7 +258,7 @@ export default function Home() {
 
 
 
-      <div className="z-10 w-full max-w-5xl items-center justify-center font-mono sm:flex">
+      <div className="z-10 w-full max-w-5xl items-center justify-center font-mono flex">
         {typedWord.map((item, index) => (
           <div key={index} className="relative">
             <Image
@@ -286,7 +286,7 @@ export default function Home() {
       </div>
 
       <div>
-        <div className="z-10 w-full max-w-5xl items-center justify-center font-mono pt-5  sm:flex">
+        <div className="z-10 w-full max-w-5xl items-center justify-center font-mono pt-5  flex">
           <Button
             className={`text-xl border-b border-gray-300 ${backgroundColors['Q']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "Q"])}
@@ -349,7 +349,7 @@ export default function Home() {
           </Button>
 
         </div>
-        <div className="z-10 w-full max-w-5xl items-center justify-center font-mono   sm:flex">
+        <div className="z-10 w-full max-w-5xl items-center justify-center font-mono flex">
           <Button
             className={`text-xl border-b border-gray-300 ${backgroundColors['A']} pb-2 pt-4 backdrop-blur-2xl dark:from-inherit sm:static sm:w-auto sm:rounded-xl sm:border sm:p-4`}
             onClick={() => setTypedWord((prevTypedWord) => [...prevTypedWord, "A"])}
@@ -406,7 +406,7 @@ export default function Home() {
           </Button>
 
         </div>
-        <div className="z-10 w-full max-w-5xl items-center justify-center font-mono   sm:flex">
+        <div className="z-10 w-full max-w-5xl items-center justify-center font-mono  flex">
           <Button
           className="text-xl border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit sm:static sm:w-auto  sm:rounded-xl sm:border sm:bg-gray-200 sm:p-4 sm:dark:bg-zinc-800/30"
           onClick={enterPressed}>
