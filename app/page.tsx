@@ -247,11 +247,33 @@ export default function Home() {
 
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="text-xl text-center border-b border-gray-300 pb-5 backdrop-blur-2xl dark:from-inherit static w-auto dark:border-neutral-800 rounded-xl border p-2 sm:p-4 justify-center">
+    <div className="flex min-h-screen flex-col items-center justify-between p-5">
+      <div className="text-xl text-center font-mono border-b border-gray-300 pb-5 backdrop-blur-2xl dark:from-inherit static w-auto dark:border-neutral-800 rounded-xl border p-2 sm:p-2 justify-center">
             MaciWords
 
       </div>
+      {guesses.length < 1 && typedWord.length < 1 && (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+        <p className="text-sm font-mono">With each guess, the shape of the letter will tell you its position</p>
+        <Image
+          src="/images/tutorialA.png"
+          height={80}
+          width={160}
+          alt="Tutorial Part 1"
+        />
+        <p className="text-sm font-mono">The color tells you if the letter is in the word, and if you guessed the right amount</p>
+        <Image
+          src="/images/tutorialB.png"
+          height={80}
+          width={160}
+          alt="Tutorial Part 1"
+        />
+        <p className="text-sm font-mono">Yellow means there is an "A", but you guessed the wrong amount</p>
+        <p className="text-sm font-mono">Blue means there is an "A", and guessed the right amount</p>
+        <p className="text-sm font-mono">Nothing means there is no "A" on the word</p>
+        <p className="text-m font-mono py-2">New word every day!</p>
+      </div>
+      )}
       <div>
         {renderGuesses()}
       </div>
