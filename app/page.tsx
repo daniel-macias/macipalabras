@@ -111,7 +111,6 @@ export default function Home() {
 
 
     return guesses.map((guess, index) => (
-      <div>
         <div key={index} className="z-10 w-full max-w-5xl items-center justify-center font-mono flex py-2">
           {Array.from(guess).map((letterFromGuess, indexLetter) => {
             let imageSrc;
@@ -172,7 +171,6 @@ export default function Home() {
               </div>
             );
           })}
-        </div >
         {guess.length > correctAnswer.length && (
           <div className="z-10 w-full max-w-5xl items-center justify-center font-mono flex py-2">
             <FontAwesomeIcon icon={faMinus} color="red" />
@@ -268,9 +266,9 @@ export default function Home() {
           width={160}
           alt="Tutorial Part 1"
         />
-        <p className="text-sm font-mono">Yellow means there is an `&quot;`A`&quot;`, but you guessed the wrong amount</p>
-        <p className="text-sm font-mono">Blue means there is an `&quot;`A`&quot;`, and guessed the right amount</p>
-        <p className="text-sm font-mono">Nothing means there is no `&quot;`A`&quot;` on the word</p>
+        <p className="text-sm font-mono">Yellow means there is an &quot;A&quot;, but you guessed the wrong amount</p>
+        <p className="text-sm font-mono">Blue means there is an &quot;A&quot;, and guessed the right amount</p>
+        <p className="text-sm font-mono">Nothing means there is no &quot;A&quot; on the word</p>
         <p className="text-m font-mono py-2">New word every day!</p>
       </div>
       )}
