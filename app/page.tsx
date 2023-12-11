@@ -268,9 +268,9 @@ export default function Home() {
           width={160}
           alt="Tutorial Part 1"
         />
-        <p className="text-sm font-mono">Yellow means there is an "A", but you guessed the wrong amount</p>
-        <p className="text-sm font-mono">Blue means there is an "A", and guessed the right amount</p>
-        <p className="text-sm font-mono">Nothing means there is no "A" on the word</p>
+        <p className="text-sm font-mono">Yellow means there is an `&quot;`A`&quot;`, but you guessed the wrong amount</p>
+        <p className="text-sm font-mono">Blue means there is an `&quot;`A`&quot;`, and guessed the right amount</p>
+        <p className="text-sm font-mono">Nothing means there is no `&quot;`A`&quot;` on the word</p>
         <p className="text-m font-mono py-2">New word every day!</p>
       </div>
       )}
