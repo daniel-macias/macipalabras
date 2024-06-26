@@ -39,7 +39,7 @@ const EnglishKeyboard: React.FC<EnglishKeyboardProps> = ({ backgroundColors, set
   );
 
   return (
-    <div className="keyboard">
+    <div className="flex flex-col items-center">
       <div className="keyboard-row">{firstRow.map(renderKey)}</div>
       <div className="keyboard-row">{secondRow.map(renderKey)}</div>
       <div className="keyboard-row">{thirdRow.map(renderKey)}</div>

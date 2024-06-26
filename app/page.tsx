@@ -19,9 +19,8 @@ export default function Home() {
     const rng = seedrandom(
       (now.getDate() + now.getMonth() * 32 + now.getFullYear() * 400).toString()
     );
-
+    
     const randomIndex = Math.floor(rng() * answers.length);
-
     setCorrectAnswer(answers[randomIndex].toUpperCase());
   }, []); 
 
@@ -116,8 +115,6 @@ export default function Home() {
                     imageSrc = "/images/good-mid.png";
                   }
                 }
-
-
               } else {
                 if (correctAnswer[0] == letterFromGuess) {
                   imageSrc = "/images/meh-end-l.png";
@@ -126,10 +123,7 @@ export default function Home() {
                 } else {
                   imageSrc = "/images/meh-mid.png";
                 }
-
-
               }
-
             } else {
               imageSrc = "/images/empty.png";
             }
@@ -172,11 +166,7 @@ export default function Home() {
           <p className='px-2'>You got it!</p>
           </div>
         )}
-        
-          
-        
       </div>
-
     ));
   };
 
@@ -190,8 +180,6 @@ export default function Home() {
       }
       setTypedWord([]);
     }
-    
-    
   };
 
   useEffect(() => {
@@ -227,7 +215,7 @@ export default function Home() {
       {/* Radial gradient for the container to give a faded look */}
       <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
       <div className="relative z-20 w-full max-w-5xl p-5">
-        <div className="text-xl text-center font-mono border-b border-gray-300 pb-5 backdrop-blur-2xl dark:from-inherit static w-auto dark:border-neutral-800 rounded-xl border p-2 sm:p-2 justify-center">
+        <div className="text-xl text-center font-mono border-b  pb-2 px-4 backdrop-blur-2xl dark:from-inherit w-fit mb-2 mx-auto">
           MaciWords
         </div>
         {guesses.length < 1 && typedWord.length < 1 && (
