@@ -2,9 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image'
-import Button from '@mui/base/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faMinus } from '@fortawesome/free-solid-svg-icons'
 import { faEquals } from '@fortawesome/free-solid-svg-icons'
@@ -174,6 +172,7 @@ export default function Home() {
           <p className='px-2'>You got it!</p>
           </div>
         )}
+        
           
         
       </div>
@@ -224,74 +223,68 @@ export default function Home() {
 
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between p-5">
-      <div className="text-xl text-center font-mono border-b border-gray-300 pb-5 backdrop-blur-2xl dark:from-inherit static w-auto dark:border-neutral-800 rounded-xl border p-2 sm:p-2 justify-center">
-            MaciWords
-
-      </div>
-      {guesses.length < 1 && typedWord.length < 1 && (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-        <p className="text-sm font-mono">With each guess, the shape of the letter will tell you its position</p>
-        <Image
-          src="/images/tutorialA.png"
-          height={80}
-          width={160}
-          alt="Tutorial Part 1"
-        />
-        <p className="text-sm font-mono">The color tells you if the letter is in the word, and if you guessed the right amount</p>
-        <Image
-          src="/images/tutorialB.png"
-          height={80}
-          width={160}
-          alt="Tutorial Part 1"
-        />
-        <p className="text-sm font-mono">Yellow means there is an &quot;A&quot;, but you guessed the wrong amount</p>
-        <p className="text-sm font-mono">Blue means there is an &quot;A&quot;, and guessed the right amount</p>
-        <p className="text-sm font-mono">Nothing means there is no &quot;A&quot; on the word</p>
-        <p className="text-m font-mono py-2">New word every day!</p>
-      </div>
-      )}
-      <div>
-        {renderGuesses()}
-      </div>
-
-
-
-      <div className="z-10 w-full max-w-5xl items-center justify-center font-mono flex">
-        {typedWord.map((item, index) => (
-          <div key={index} className="relative">
+    <div className="min-h-screen w-full dark:bg-gray-900 bg-white dark:bg-dot-white/[0.1] bg-dot-black/[0.1] relative flex flex-col items-center justify-center overflow-auto">
+      {/* Radial gradient for the container to give a faded look */}
+      <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+      <div className="relative z-20 w-full max-w-5xl p-5">
+        <div className="text-xl text-center font-mono border-b border-gray-300 pb-5 backdrop-blur-2xl dark:from-inherit static w-auto dark:border-neutral-800 rounded-xl border p-2 sm:p-2 justify-center">
+          MaciWords
+        </div>
+        {guesses.length < 1 && typedWord.length < 1 && (
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+            <p className="text-sm font-mono">With each guess, the shape of the letter will tell you its position</p>
             <Image
-              src="/images/empty.png"
-              width={50}
-              height={50}
-              alt="Empty Image"
+              src="/images/tutorialA.png"
+              height={80}
+              width={160}
+              alt="Tutorial Part 1"
             />
-            <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-              <p className="text-xl">{item}</p>
-            </div>
+            <p className="text-sm font-mono">The color tells you if the letter is in the word, and if you guessed the right amount</p>
+            <Image
+              src="/images/tutorialB.png"
+              height={80}
+              width={160}
+              alt="Tutorial Part 1"
+            />
+            <p className="text-sm font-mono">Yellow means there is an &quot;A&quot;, but you guessed the wrong amount</p>
+            <p className="text-sm font-mono">Blue means there is an &quot;A&quot;, and guessed the right amount</p>
+            <p className="text-sm font-mono">Nothing means there is no &quot;A&quot; on the word</p>
+            <p className="text-m font-mono py-2">New word every day!</p>
           </div>
-        ))}
-      </div>
-
-      <div>
+        )}
+        <div className="flex flex-col items-center">
+          {renderGuesses()}
+        </div>
+        <div className="flex items-center justify-center">
+          {typedWord.map((item, index) => (
+            <div key={index} className="relative">
+              <Image
+                src="/images/empty.png"
+                width={50}
+                height={50}
+                alt="Empty Image"
+              />
+              <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+                <p className="text-xl">{item}</p>
+              </div>
+            </div>
+          ))}
+        </div>
         {isSolved && (
           <div className="text-center border-b border-gray-300 pb-2 pt-4 backdrop-blur-2xl dark:from-inherit static w-auto dark:border-neutral-800 rounded-xl border p-2 sm:p-4 justify-center">
             <div className="text-xl">MaciWords</div>
             <div>{guesses.length} words used</div>
             <div>{guesses.join('').length} letters used</div>
-            
           </div>
         )}
       </div>
-
-      <EnglishKeyboard
-        backgroundColors={backgroundColors}
-        setTypedWord={setTypedWord}
-        enterPressed={enterPressed}
-      />
-      
+      <div className="flex items-center justify-center w-full mt-4">
+        <EnglishKeyboard
+          backgroundColors={backgroundColors}
+          setTypedWord={setTypedWord}
+          enterPressed={enterPressed}
+        />
+      </div>
     </div>
-
-
   )
 }
