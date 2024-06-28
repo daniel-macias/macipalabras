@@ -1,28 +1,27 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from 'react';
-import Image from 'next/image'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { faMinus } from '@fortawesome/free-solid-svg-icons'
-import { faEquals } from '@fortawesome/free-solid-svg-icons'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faMinus, faEquals, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { answers, allowed } from '../public/words';
 import seedrandom from 'seedrandom';
 import EnglishKeyboard from './components/EnglishKeyboard';
 
 export default function Home() {
   const [correctAnswer, setCorrectAnswer] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const now = new Date();
     const rng = seedrandom(
       (now.getDate() + now.getMonth() * 32 + now.getFullYear() * 400).toString()
     );
-    
+
     const randomIndex = Math.floor(rng() * answers.length);
+
     setCorrectAnswer(answers[randomIndex].toUpperCase());
-  }, []); 
+  }, []);
 
   const detectKeyDown = useRef<((e: KeyboardEvent) => void) | null>(null);
   const [typedWord, setTypedWord] = useState<string[]>([]);
@@ -33,10 +32,10 @@ export default function Home() {
     [key: string]: string;
   };
   
-
+  
   const initialBackgroundColors: BackgroundColors = {} as BackgroundColors;
   const keys = 'QWERTYUIOPASDFGHJKLZXCVBNM'.split('');
-  
+
   keys.forEach(key => {
     initialBackgroundColors[key as keyof BackgroundColors] = 'bg-gradient-to-b from-zinc-200';
   });
@@ -45,20 +44,15 @@ export default function Home() {
 
   const changeKeyboardColors = (letterAmountGuesses: Map<string, number>, letterAmountAnswer: Map<string, number>) => {
     const updatedBackgroundColors = backgroundColors;
-    console.log(letterAmountAnswer);
-    console.log(letterAmountGuesses);
   
     letterAmountGuesses.forEach((value, key) => {
       if (letterAmountAnswer.has(key)) {
         if (letterAmountAnswer.get(key) === letterAmountGuesses.get(key)) {
-          // paint correct
           updatedBackgroundColors[key] = 'bg-blue-500';
         } else {
-          // paint exists
           updatedBackgroundColors[key] = 'bg-yellow-500';
         }
       } else {
-        // paint absent
         updatedBackgroundColors[key] = 'bg-zinc-500';
       }
     });
@@ -69,7 +63,6 @@ export default function Home() {
   function getLetterAmount(word: string): Map<string, number> {
     const letterCount: Map<string, number> = new Map();
 
-    // Count the appearances of each letter in the word
     for (const letter of word) {
       if (letterCount.has(letter)) {
         letterCount.set(letter, letterCount.get(letter)! + 1);
@@ -82,43 +75,40 @@ export default function Home() {
   }
 
   const renderGuesses = () => {
-
     let answerLetterAmount = getLetterAmount(correctAnswer);
-
 
     return guesses.map((guess, index) => (
         <div key={index} className="z-10 w-full max-w-5xl items-center justify-center font-mono flex py-2">
+          <div className="flex items-center justify-center">
           {Array.from(guess).map((letterFromGuess, indexLetter) => {
             let imageSrc;
 
             if (correctAnswer.includes(letterFromGuess)) {
-
               let guessLetterAmount = getLetterAmount(guess);
-              let isCorrectSolution = correctAnswer == guess ? true : false;
+              let isCorrectSolution = correctAnswer === guess;
 
-              if (answerLetterAmount.get(letterFromGuess) == guessLetterAmount.get(letterFromGuess)) {
-
+              if (answerLetterAmount.get(letterFromGuess) === guessLetterAmount.get(letterFromGuess)) {
                 if (isCorrectSolution) {
-                  if (correctAnswer[0] == letterFromGuess) {
+                  if (correctAnswer[0] === letterFromGuess) {
                     imageSrc = "/images/complete-l.png";
-                  } else if (correctAnswer[correctAnswer.length - 1] == letterFromGuess) {
+                  } else if (correctAnswer[correctAnswer.length - 1] === letterFromGuess) {
                     imageSrc = "/images/complete-r.png";
                   } else {
                     imageSrc = "/images/complete-mid.png";
                   }
                 } else {
-                  if (correctAnswer[0] == letterFromGuess) {
+                  if (correctAnswer[0] === letterFromGuess) {
                     imageSrc = "/images/good-end-l.png";
-                  } else if (correctAnswer[correctAnswer.length - 1] == letterFromGuess) {
+                  } else if (correctAnswer[correctAnswer.length - 1] === letterFromGuess) {
                     imageSrc = "/images/good-end-r.png";
                   } else {
                     imageSrc = "/images/good-mid.png";
                   }
                 }
               } else {
-                if (correctAnswer[0] == letterFromGuess) {
+                if (correctAnswer[0] === letterFromGuess) {
                   imageSrc = "/images/meh-end-l.png";
-                } else if (correctAnswer[correctAnswer.length - 1] == letterFromGuess) {
+                } else if (correctAnswer[correctAnswer.length - 1] === letterFromGuess) {
                   imageSrc = "/images/meh-end-r.png";
                 } else {
                   imageSrc = "/images/meh-mid.png";
@@ -141,7 +131,8 @@ export default function Home() {
                 </div>
               </div>
             );
-          })}
+          })}</div>
+          <div className="mt-2">
         {guess.length > correctAnswer.length && (
           <div className="z-10 w-full max-w-5xl items-center justify-center font-mono flex py-2">
             <FontAwesomeIcon icon={faMinus} color="red" />
@@ -154,7 +145,7 @@ export default function Home() {
             <p className="px-2">The answer has more letters</p>
           </div>
         )}
-        {guess.length === correctAnswer.length && guess != correctAnswer && (
+        {guess.length === correctAnswer.length && guess !== correctAnswer && (
           <div className="z-10 w-full max-w-5xl items-center justify-center font-mono flex py-2">
             <FontAwesomeIcon icon={faEquals} color="yellow" />
             <p className="px-2">The answer has the same number of letters</p>
@@ -166,16 +157,25 @@ export default function Home() {
           <p className='px-2'>You got it!</p>
           </div>
         )}
+        </div>
       </div>
     ));
   };
 
   const enterPressed = () => {
-    if(!isSolved){
+    if (!isSolved) {
       const wordToCheck = typedWord.join('');
+      
+      // Check if the word is in the allowed list
+      if (!allowed.includes(wordToCheck.toLowerCase())) {
+        setErrorMessage('That word is not allowed');
+        return;
+      }
+
+      setErrorMessage('');
       setGuesses((prevGuess) => [...prevGuess, wordToCheck]);
-      changeKeyboardColors(getLetterAmount(wordToCheck),getLetterAmount(correctAnswer));
-      if (wordToCheck == correctAnswer) {
+      changeKeyboardColors(getLetterAmount(wordToCheck), getLetterAmount(correctAnswer));
+      if (wordToCheck === correctAnswer) {
         setIsSolved(true);
       }
       setTypedWord([]);
@@ -265,6 +265,11 @@ export default function Home() {
             <div>{guesses.join('').length} letters used</div>
           </div>
         )}
+        {errorMessage && (
+          <div className="text-center text-red-500 mt-4">
+            {errorMessage}
+          </div>
+        )}
       </div>
       <div className="flex items-center justify-center w-full mt-4">
         <EnglishKeyboard
@@ -274,5 +279,5 @@ export default function Home() {
         />
       </div>
     </div>
-  )
+  );
 }
